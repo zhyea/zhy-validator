@@ -2,7 +2,7 @@ package org.chobit.common.validation;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
-import org.chobit.common.base.BaseEnum;
+import org.chobit.common.base.CodeEnum;
 
 import java.lang.annotation.*;
 
@@ -30,7 +30,7 @@ public @interface EnumValue {
      *
      * @return 枚举类类型
      */
-    Class<? extends Enum<? extends BaseEnum>> enumClass();
+    Class<? extends Enum<? extends CodeEnum>> enumClass();
 
 
     /**

@@ -2,12 +2,16 @@ package org.chobit.common.utils;
 
 
 import org.chobit.common.base.CodeDescEnum;
-import org.chobit.common.base.BaseEnum;
+import org.chobit.common.base.CodeEnum;
 
 /**
+ * 枚举工具类
+ * <p>
+ * 主要用来处理继承了{@see org.chobit.common.base.CodeEnum}和{@see org.chobit.common.base.CodeDescEnum}接口的枚举
+ *
  * @author robin
  */
-public final class BaseEnumKit {
+public final class EnumKit {
 
 
     /**
@@ -18,10 +22,10 @@ public final class BaseEnumKit {
      * @return 枚举值对应的desc
      */
     public static String descOf(Integer code, Class<? extends Enum<? extends CodeDescEnum>> clazz) {
-        BaseEnum v = enumOf(code, clazz);
+        CodeEnum v = enumOf(code, clazz);
 
-        if(v instanceof CodeDescEnum){
-            return ((CodeDescEnum)v).getDesc();
+        if (v instanceof CodeDescEnum) {
+            return ((CodeDescEnum) v).getDesc();
         }
         return null;
     }
@@ -34,18 +38,18 @@ public final class BaseEnumKit {
      * @param clazz 枚举类
      * @return code对应的枚举值
      */
-    public static BaseEnum enumOf(Integer code, Class<? extends Enum<? extends BaseEnum>> clazz) {
+    public static CodeEnum enumOf(Integer code, Class<? extends Enum<? extends CodeEnum>> clazz) {
         if (null == code) {
             return null;
         }
 
-        if (!BaseEnum.class.isAssignableFrom(clazz)) {
+        if (!CodeEnum.class.isAssignableFrom(clazz)) {
             return null;
         }
 
         Enum<?>[] values = clazz.getEnumConstants();
         for (Enum<?> e : values) {
-            BaseEnum val = (BaseEnum) e;
+            CodeEnum val = (CodeEnum) e;
             if (code.equals(val.getCode())) {
                 return val;
             }
@@ -62,7 +66,7 @@ public final class BaseEnumKit {
      * @param <T>  枚举类型实例
      * @return 枚举值
      */
-    public static <T extends Enum<?> & BaseEnum> T codeOf(Class<T> enumType, int code) {
+    public static <T extends Enum<?> & CodeEnum> T codeOf(Class<T> enumType, int code) {
 
         T[] values = enumType.getEnumConstants();
 
@@ -80,7 +84,8 @@ public final class BaseEnumKit {
     }
 
 
-    private BaseEnumKit() {
+    private EnumKit() {
+        throw new UnsupportedOperationException("Private constructor, cannot be accessed.");
     }
 
 }

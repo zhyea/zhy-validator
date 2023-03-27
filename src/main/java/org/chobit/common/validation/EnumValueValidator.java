@@ -3,8 +3,8 @@ package org.chobit.common.validation;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
-import org.chobit.common.base.BaseEnum;
-import org.chobit.common.utils.BaseEnumKit;
+import org.chobit.common.base.CodeEnum;
+import org.chobit.common.utils.EnumKit;
 
 /**
  * 枚举值验证
@@ -17,7 +17,7 @@ public class EnumValueValidator implements ConstraintValidator<EnumValue, Intege
     /**
      * 枚举类型
      */
-    private Class<? extends Enum<? extends BaseEnum>> enumClass;
+    private Class<? extends Enum<? extends CodeEnum>> enumClass;
 
     /**
      * 已排除的枚举code值
@@ -28,7 +28,7 @@ public class EnumValueValidator implements ConstraintValidator<EnumValue, Intege
     @Override
     public void initialize(EnumValue enumVal) {
         this.enumClass = enumVal.enumClass();
-        if (!BaseEnum.class.isAssignableFrom(this.enumClass)) {
+        if (!CodeEnum.class.isAssignableFrom(this.enumClass)) {
             throw new IllegalArgumentException(this.enumClass + "不是继承自BaseEnum");
         }
         this.excludeCodes = enumVal.exclude();
@@ -48,7 +48,7 @@ public class EnumValueValidator implements ConstraintValidator<EnumValue, Intege
             }
         }
 
-        BaseEnum e = BaseEnumKit.enumOf(value, this.enumClass);
+        CodeEnum e = EnumKit.enumOf(value, this.enumClass);
 
         return null != e;
     }

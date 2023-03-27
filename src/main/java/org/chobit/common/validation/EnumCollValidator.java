@@ -2,8 +2,8 @@ package org.chobit.common.validation;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
-import org.chobit.common.base.BaseEnum;
-import org.chobit.common.utils.BaseEnumKit;
+import org.chobit.common.base.CodeEnum;
+import org.chobit.common.utils.EnumKit;
 
 import java.util.Collection;
 
@@ -15,13 +15,13 @@ import java.util.Collection;
 public class EnumCollValidator implements ConstraintValidator<EnumColl, Collection<Integer>> {
 
 
-    private Class<? extends Enum<? extends BaseEnum>> enumClass;
+    private Class<? extends Enum<? extends CodeEnum>> enumClass;
 
 
     @Override
     public void initialize(EnumColl enumVal) {
         this.enumClass = enumVal.enumClass();
-        if (!BaseEnum.class.isAssignableFrom(this.enumClass)) {
+        if (!CodeEnum.class.isAssignableFrom(this.enumClass)) {
             throw new RuntimeException(this.enumClass + "不是继承自BaseEnum");
         }
     }
@@ -33,7 +33,7 @@ public class EnumCollValidator implements ConstraintValidator<EnumColl, Collecti
         }
 
         for (Integer e : coll) {
-            BaseEnum enumVal = BaseEnumKit.enumOf(e, this.enumClass);
+            CodeEnum enumVal = EnumKit.enumOf(e, this.enumClass);
             if (null == enumVal) {
                 return false;
             }

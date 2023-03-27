@@ -5,7 +5,7 @@ package org.chobit.common.base;
  *
  * @author robin
  */
-public interface CodeDescEnum extends BaseEnum {
+public interface CodeDescEnum extends CodeEnum {
 
 
     /**
